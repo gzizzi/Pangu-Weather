@@ -19,6 +19,8 @@ options.enable_mem_reuse = False
 options.intra_op_num_threads = 1
 
 # Set the behavier of cuda provider
+# The CUDA Execution Provider enables hardware accelerated computation on Nvidia CUDA-enabled GPUs
+#
 cuda_provider_options = {'arena_extend_strategy':'kSameAsRequested',}
 
 # Initialize onnxruntime session for Pangu-Weather Models
@@ -40,3 +42,6 @@ for i in range(28):
     output, output_surface = ort_session_6.run(None, {'input':input, 'input_surface':input_surface})
   input, input_surface = output, output_surface
   # Your can save the results here
+  np.save(os.path.join(output_data_dir, f'output_upper_step_{i}.npy'), output)
+  np.save(os.path.join(output_data_dir, f'output_surface_step_{i}.npy'), output_surface)
+
